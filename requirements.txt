@@ -1,0 +1,112 @@
+*Must support multiple clients
+
+	-----------------------CLIENT---------------------------
+
+*"Telnet <your server's ip address> <port>" can be used to test your smtp server program first
+	*then test SMTP client with SMTP server
+	*use Telnet as a client initially
+
+1. SMTP Client Program (NOT a TELNET client!!!) (X)
+	*display a message asking for host name of SMTP server (like before) (x)
+
+2. Build up TCP connection to SMTP server with Host Name input by User at given port.(X)
+	* Catch the exception & display error / terminate program if invalid host name (x)
+	* Wait for, read, and display the "220" response from the SMTP server (x)
+
+3. Display prompt messages to ask the user to input (respectively):
+	* Sender's email address
+	* Receiver's email address
+	* Subject
+	* Email contents (body of the email)
+	    * Consider a do-while that ends when line = "."
+		* Contents must end with a "." on a single line (ending signature)
+		* Give the user this info via stndrd output
+
+4. Use user inputs collected in step 3 for the following 3 phase data transfer procedure.
+*DISPLAY RTT OF EACH STEP BELOW RESPECTIVELY
+* wait for SMTP response for each & display before moving to the next.
+	a. Send the "HELO <sender's mail server domain name>" command to SMTP server program
+	b. Send the "MAIL FROM: <sender's email address>" command to SMTP server
+	c. Send the "RCPT TO: <receiver's email address>" command to the SMTP server program
+	d. Send the "DATA" command to the SMTP server program, wait for SMTP server's response and display it
+		on the standard output.
+	e. Send the Mail message to the SMTP server
+		* the format of Mail message MUST follow format detailed on slide titled "Mail message format"
+		* wait for SMTP server response & display
+
+5. Display a prompt message to ask the User whether to continue. If yes, repeate steps 3 through 5.(X)
+	* Otherwise, send a "QUIT" command to the SMTP server(x)
+	* Display SMTP Server's response(x)
+	* close TCP connection(x)
+	* terminate the client program(x)
+
+
+	-----------------------SERVER---------------------------
+
+1. Listen to the given port and wait for a connection request from a SMTP Client(X)
+
+2. Create a new thread for every incoming TCP connection request from SMTP(X)
+	* Send the "220" response including server's ip address or dns name to the SMTP client(X)
+
+3. Implement the following 3-phase data transfer procedure (see step 4 on client side):
+	a. Wait for, read, and display the "HELO" command from SMTP client
+		* If the incoming command is NOT HELO
+			* sends "503 5.5.2 Send hello first" response to the SMTP client and repeat step 3. a.
+	b. Send the "250 <server's ip> Hello <client's ip>" response to the SMTP client.
+	c. Wait for, read, and display the "MAIL FROM" command from teh SMTP client.
+		* If incoming command is NOT "MAIL FROM"
+			* sends "503 5.5.2 Need mail command" to client & repeat 3. c.
+	d. Send the "250 2.1.0 Sender OK" response to SMTP client.
+	e. Wait for, read, and display the "RCPT TO" command from the SMTP client.
+		* If incoming command is NOT "RCPT TO"
+			* sends "503 5.5.2 Need rcpt command" to client & repeat 3. e.
+	f. Send the "350 2.1.5 Recipient OK" response to SMTP client
+	g. Wait for, read and display the "DATA" command from SMTP client
+		* If incoming command is NOT "DATA"
+			* send "503 5.5.2 Need data command" & repeat 3. g.
+	h. Send the "354 Start mail input; end with <CRLF>.<CRLF>" response to the client
+	i. Wait for, read * display the mail message from the SMTP client line by line. (hint: "." is ending sign)
+	j. Send the "250 Message received and to be delivered" response to the SMTP client
+
+4. Repeat step 3 until "QUIT" command is read
+	* Upon receiving "QUIT, send "221 <server's ip> closing connection" to client
+	* Go to step 5
+
+5. Close all i/o streams and teh TCP socket for THIS client, and terminate the thread for THIS client
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
