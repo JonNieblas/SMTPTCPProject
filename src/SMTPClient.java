@@ -26,6 +26,10 @@ public class SMTPClient {
         String subject;
         String emailContents;
 
+
+        //possibly use later depending on how we handle commands
+        //String userCommandChoice;
+
         //connect to server
         try {
             tcpSocket = new Socket(hostName, 5210);
@@ -51,6 +55,9 @@ public class SMTPClient {
 
             //send messages to the server & read responses
             ClientSendHandler sendHandler = new ClientSendHandler(sendersEmail, receiversEmail, subject, emailContents);
+
+            //possibly make it so that the user has to choose which command to send
+            //System.out.println("Please enter HELO, MAIL FROM, RCPT TO, DATA, or MESSAGE");
             sendHandler.SendCodeToServer(socketOut, socketIn, "HELO");
             sendHandler.SendCodeToServer(socketOut, socketIn, "MAIL FROM");
             sendHandler.SendCodeToServer(socketOut, socketIn, "RCPT TO");

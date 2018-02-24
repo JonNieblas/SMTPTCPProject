@@ -34,7 +34,7 @@
 		* the format of Mail message MUST follow format detailed on slide titled "Mail message format" (x)
 		* wait for SMTP server response & display
 
-5. Display a prompt message to ask the User whether to continue. If yes, repeate steps 3 through 5.(X)
+5. Display a prompt message to ask the User whether to continue. If yes, repeat steps 3 through 5.(X)
 	* Otherwise, send a "QUIT" command to the SMTP server(x)
 	* Display SMTP Server's response(x)
 	* close TCP connection(x)
@@ -49,23 +49,23 @@
 	* Send the "220" response including server's ip address or dns name to the SMTP client(X)
 
 3. Implement the following 3-phase data transfer procedure (see step 4 on client side):
-	a. Wait for, read, and display the "HELO" command from SMTP client
-		* If the incoming command is NOT HELO
-			* sends "503 5.5.2 Send hello first" response to the SMTP client and repeat step 3. a.
-	b. Send the "250 <server's ip> Hello <client's ip>" response to the SMTP client.
-	c. Wait for, read, and display the "MAIL FROM" command from teh SMTP client.
-		* If incoming command is NOT "MAIL FROM"
-			* sends "503 5.5.2 Need mail command" to client & repeat 3. c.
-	d. Send the "250 2.1.0 Sender OK" response to SMTP client.
-	e. Wait for, read, and display the "RCPT TO" command from the SMTP client.
-		* If incoming command is NOT "RCPT TO"
-			* sends "503 5.5.2 Need rcpt command" to client & repeat 3. e.
-	f. Send the "350 2.1.5 Recipient OK" response to SMTP client
-	g. Wait for, read and display the "DATA" command from SMTP client
-		* If incoming command is NOT "DATA"
-			* send "503 5.5.2 Need data command" & repeat 3. g.
-	h. Send the "354 Start mail input; end with <CRLF>.<CRLF>" response to the client
-	i. Wait for, read * display the mail message from the SMTP client line by line. (hint: "." is ending sign)
+	a. Wait for, read, and display the "HELO" command from SMTP client (x)
+		* If the incoming command is NOT HELO (x)
+			* sends "503 5.5.2 Send hello first" response to the SMTP client and repeat step 3. a. (x)
+	b. Send the "250 <server's ip> Hello <client's ip>" response to the SMTP client. (x)
+	c. Wait for, read, and display the "MAIL FROM" command from the SMTP client. (x)
+		* If incoming command is NOT "MAIL FROM" (x)
+			* sends "503 5.5.2 Need mail command" to client & repeat 3. c. (x)
+	d. Send the "250 2.1.0 Sender OK" response to SMTP client. (x)
+	e. Wait for, read, and display the "RCPT TO" command from the SMTP client. (x)
+		* If incoming command is NOT "RCPT TO" (x)
+			* sends "503 5.5.2 Need rcpt command" to client & repeat 3. e. (x)
+	f. Send the "350 2.1.5 Recipient OK" response to SMTP client (x)
+	g. Wait for, read and display the "DATA" command from SMTP client (x)
+		* If incoming command is NOT "DATA" (x)
+			* send "503 5.5.2 Need data command" & repeat 3. g. (x)
+	h. Send the "354 Start mail input; end with <CRLF>.<CRLF>" response to the client (x)
+	i. Wait for, read * display the mail message from the SMTP client line by line. (hint: "." is ending sign)(x)
 	j. Send the "250 Message received and to be delivered" response to the SMTP client
 
 4. Repeat step 3 until "QUIT" command is read

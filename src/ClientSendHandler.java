@@ -16,6 +16,7 @@ public class ClientSendHandler {
     float after;
     float rtt;
 
+    //records info for "MESSAGE" code
     String completeMessage;
     String toLine;
     String fromLine;
