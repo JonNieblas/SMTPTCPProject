@@ -11,8 +11,9 @@ public class SMTPClient {
         BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
         String fromServer;
         String fromUser;
-        //create ClientHelper for handling methods
-        ClientHelper helper = new ClientHelper();
+        //create ClientPrintHandler for handling methods
+        ClientPrintHandler printHandler = new ClientPrintHandler();
+
 
         //ask for DNS name/IP from user
         String hostName;
@@ -40,33 +41,24 @@ public class SMTPClient {
             System.exit(1);
         }
 
-//        while ((fromUser = sysIn.readLine()) != null) {
-//            System.out.println("Client: " + fromUser);
-//            socketOut.println(fromUser);
-//
-//            if ((fromServer = socketIn.readLine()) != null)
-//            {
-//                System.out.println("Server: " + fromServer);
-//            }
-//            else {
-//                System.out.println("Server replies nothing!");
-//                break;
-//            }
-//
-//            if (fromUser.equals("Bye."))
-//                break;
-//
-//        }
-
         //check if process is to be repeated
         do{
             //get info from user
-            sendersEmail = helper.SendersEmailAddressHandler(sysIn);
-            receiversEmail = helper.ReceiversEmailAddressHandler(sysIn);
-            subject = helper.SubjectEmailHandler(sysIn);
-            emailContents = helper.ContentsOfEmail(sysIn);
+            sendersEmail = printHandler.SendersEmailAddressHandler(sysIn);
+            receiversEmail = printHandler.ReceiversEmailAddressHandler(sysIn);
+            subject = printHandler.SubjectEmailHandler(sysIn);
+            emailContents = printHandler.ContentsOfEmail(sysIn);
 
-            fromUser = helper.ContinueOrQuit(sysIn);
+            //send messages to the server & read responses
+            ClientSendHandler sendHandler = new ClientSendHandler(sendersEmail, receiversEmail, subject, emailContents);
+            sendHandler.SendCodeToServer(socketOut, socketIn, "HELO");
+            sendHandler.SendCodeToServer(socketOut, socketIn, "MAIL FROM");
+            sendHandler.SendCodeToServer(socketOut, socketIn, "RCPT TO");
+            sendHandler.SendCodeToServer(socketOut, socketIn, "DATA");
+            sendHandler.SendCodeToServer(socketOut, socketIn, "MESSAGE");
+
+            //sends "QUIT" to server if "no"
+            fromUser = printHandler.ContinueOrQuit(sysIn);
             if(fromUser.equals("no")){
                 socketOut.println("QUIT");
                 fromServer = socketIn.readLine();

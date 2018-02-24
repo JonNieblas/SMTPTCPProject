@@ -1,9 +1,3 @@
-/*
- * Server App upon TCP
- * A thread is started to handle every client TCP connection to this server
- * Weiying Zhu
- */
-
 import java.net.*;
 import java.io.*;
 

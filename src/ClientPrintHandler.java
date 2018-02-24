@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class ClientHelper {
+public class ClientPrintHandler {
 
     public String SendersEmailAddressHandler(BufferedReader sysIn) throws IOException{
         String sendersEmail;
@@ -47,7 +47,7 @@ public class ClientHelper {
             System.out.println("Please enter yes or no:");
             fromUser = sysIn.readLine().toLowerCase().trim();
         } while (!fromUser.equals("yes") && !fromUser.equals("no"));
-        //send quit if "no"
         return fromUser;
     }
+
 }

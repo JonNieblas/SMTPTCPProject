@@ -13,25 +13,25 @@
 	* Catch the exception & display error / terminate program if invalid host name (x)
 	* Wait for, read, and display the "220" response from the SMTP server (x)
 
-3. Display prompt messages to ask the user to input (respectively):
-	* Sender's email address
-	* Receiver's email address
-	* Subject
-	* Email contents (body of the email)
-	    * Consider a do-while that ends when line = "."
-		* Contents must end with a "." on a single line (ending signature)
-		* Give the user this info via stndrd output
+3. Display prompt messages to ask the user to input (respectively): (X)
+	* Sender's email address (x)
+	* Receiver's email address (x)
+	* Subject (x)
+	* Email contents (body of the email) (x)
+	    * Consider a do-while that ends when line = "." (x)
+		* Contents must end with a "." on a single line (ending signature) (x)
+		* Give the user this info via stndrd output (x)
 
-4. Use user inputs collected in step 3 for the following 3 phase data transfer procedure.
-*DISPLAY RTT OF EACH STEP BELOW RESPECTIVELY
-* wait for SMTP response for each & display before moving to the next.
-	a. Send the "HELO <sender's mail server domain name>" command to SMTP server program
-	b. Send the "MAIL FROM: <sender's email address>" command to SMTP server
-	c. Send the "RCPT TO: <receiver's email address>" command to the SMTP server program
+4. Use user inputs collected in step 3 for the following 3 phase data transfer procedure. (X)
+*DISPLAY RTT OF EACH STEP BELOW RESPECTIVELY (x)
+* wait for SMTP response for each & display before moving to the next. (x)
+	a. Send the "HELO <sender's mail server domain name>" command to SMTP server program(x)
+	b. Send the "MAIL FROM: <sender's email address>" command to SMTP server (x)
+	c. Send the "RCPT TO: <receiver's email address>" command to the SMTP server program (x)
 	d. Send the "DATA" command to the SMTP server program, wait for SMTP server's response and display it
-		on the standard output.
-	e. Send the Mail message to the SMTP server
-		* the format of Mail message MUST follow format detailed on slide titled "Mail message format"
+		on the standard output. (x)
+	e. Send the Mail message to the SMTP server (x)
+		* the format of Mail message MUST follow format detailed on slide titled "Mail message format" (x)
 		* wait for SMTP server response & display
 
 5. Display a prompt message to ask the User whether to continue. If yes, repeate steps 3 through 5.(X)
