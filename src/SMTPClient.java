@@ -1,6 +1,14 @@
 import java.io.*;
 import java.net.*;
-
+/**
+ * Connects to class SMTPServer, sending SMTP
+ * messages based on user input and reading responses
+ * from the server.
+ *
+ * Has two helper classes, ClientPrintHandler and ClientSendHandler.
+ *
+ * Jonathan Nieblas
+ */
 public class SMTPClient {
     public static void main(String[] args) throws IOException {
 
@@ -11,9 +19,9 @@ public class SMTPClient {
         BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
         String fromServer;
         String fromUser;
+
         //create ClientPrintHandler for handling methods
         ClientPrintHandler printHandler = new ClientPrintHandler();
-
 
         //ask for DNS name/IP from user
         String hostName;
@@ -25,10 +33,6 @@ public class SMTPClient {
         String receiversEmail;
         String subject;
         String emailContents;
-
-
-        //possibly use later depending on how we handle commands
-        //String userCommandChoice;
 
         //connect to server
         try {
@@ -56,8 +60,6 @@ public class SMTPClient {
             //send messages to the server & read responses
             ClientSendHandler sendHandler = new ClientSendHandler(sendersEmail, receiversEmail, subject, emailContents);
 
-            //possibly make it so that the user has to choose which command to send
-            //System.out.println("Please enter HELO, MAIL FROM, RCPT TO, DATA, or MESSAGE");
             sendHandler.SendCodeToServer(socketOut, socketIn, "HELO");
             sendHandler.SendCodeToServer(socketOut, socketIn, "MAIL FROM");
             sendHandler.SendCodeToServer(socketOut, socketIn, "RCPT TO");

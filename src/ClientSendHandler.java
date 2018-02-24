@@ -1,7 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+/**
+ * Handles the sending of messages to the SMTPServer
+ * for the SMTPClient Class.
+ *
+ * Jonathan Nieblas
+ */
 public class ClientSendHandler {
     //info from user
     private String sendersEmail;
@@ -55,6 +60,6 @@ public class ClientSendHandler {
         after = currentTime/1000.0f;
         rtt = after - before;
         System.out.println(socketIn.readLine());
-        System.out.println("RTT: " + rtt + "\r\n");
+        System.out.println("RTT: " + rtt + " ms\r\n");
     }
 }

@@ -1,6 +1,14 @@
+/**
+ * Server Class responsible for receiving SMTP messages from
+ * the SMTPClient Class, then returning messages based on
+ * client input.
+ *
+ * Has one class that assists, ServerSendHandler.
+ *
+ * Jonathan Nieblas
+ */
 import java.net.*;
 import java.io.*;
-
 public class SMTPServer extends Thread {
     private Socket clientTCPSocket;
     InetAddress ip;
@@ -37,6 +45,7 @@ public class SMTPServer extends Thread {
             //read lines from client
             while ((fromClient = cSocketIn.readLine()) != null) {
                 if (fromClient.equals("QUIT")) {
+                    System.out.println(fromClient);
                     cSocketOut.println("221 " + ip.getHostAddress() + " closing connection");
                     break;
                 }
@@ -60,10 +69,10 @@ public class SMTPServer extends Thread {
                 }
             }
 
+            System.out.println("Thread Terminated.");
             cSocketOut.close();
             cSocketIn.close();
             clientTCPSocket.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,11 +1,15 @@
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-
+/**
+ * Helps the SMTPServer Class send messages to
+ * the SMTPClient Class. Messages sent are based on
+ * codes received by the client.
+ */
 public class ServerSendHandler {
 
     private Socket clientTCPSocket;
-    InetAddress ip;
+    private InetAddress ip;
 
     public ServerSendHandler(Socket socket, InetAddress ip){
         this.clientTCPSocket = socket;
@@ -15,7 +19,7 @@ public class ServerSendHandler {
     public int HELOHandler(String code, PrintWriter cSocketOut){
         int HELOCounter;
         System.out.println(code);
-        if(!code.startsWith("HELO:")){
+        if(!code.startsWith("HELO")){
             cSocketOut.println("503 5.5.2 Send hello first");
             HELOCounter = 0;
         } else{
@@ -35,7 +39,6 @@ public class ServerSendHandler {
             cSocketOut.println("250 2.1.0 Sender OK");
             MAILFROMCounter = 1;
         }
-
         return MAILFROMCounter;
     }
 
@@ -49,7 +52,6 @@ public class ServerSendHandler {
             cSocketOut.println("350 2.1.5 Recipient OK");
             RCPTTOHandler = 1;
         }
-
         return RCPTTOHandler;
     }
 
@@ -63,7 +65,6 @@ public class ServerSendHandler {
             cSocketOut.println("354 Start mail input; end with <CRLF>.<CRLF>");
             DATAHandler = 1;
         }
-
         return DATAHandler;
     }
 }
